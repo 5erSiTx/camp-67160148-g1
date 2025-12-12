@@ -1,84 +1,51 @@
-<!doctype html>
-<html lang="th">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>แบบฟอร์มสมัคร</title>
+@extends('template.default')
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-
-    <style>
-        :root {
-            --bs-body-bg: #f3f6fb;
-            --bs-card-bg: #ffffff;
-            --bs-primary: #4f46e5;
-            --bs-border-radius: 14px;
-        }
-        body {
-            background: linear-gradient(180deg, var(--bs-body-bg), #e9f0ff);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem; /* Use Bootstrap spacing utility */
-        }
-        .container-custom {
-            width: 100%;
-            max-width: 900px;
-            background: var(--bs-card-bg);
-            border-radius: var(--bs-border-radius);
-            box-shadow: 0 10px 30px rgba(20, 25, 40, 0.08);
-            padding: 28px;
-        }
-        /* Custom styling for the checkbox grid to match the original look */
-        .checkbox-grid .form-check-label {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            background: #f8fafc;
-            border: 1px solid #eef2ff;
-            padding: 8px 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            margin-bottom: 0; /* Override default margin */
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
+    @section('content')
     <div class="container-custom">
         <h1 class="mb-1">แบบฟอร์มสมัคร</h1>
         <p class="lead text-muted mb-4" style="font-size: 14px;">กรุณากรอกข้อมูลให้ครบถ้วน เพื่อใช้ในการติดต่อกลับ</p>
 
         <form action="#" method="post" enctype="multipart/form-data" novalidate>
             <div class="row g-3 g-md-4">
-                
+
                 <div class="col-12 col-md-6">
                     <label for="fname" class="form-label">ชื่อ *</label>
-                    <input id="fname" name="first_name" type="text" class="form-control" placeholder="เช่น สมชาย" required>
+                    <input id="fname" name="first_name" type="text" class="form-control" placeholder="เช่น สมชาย" required autocomplete="given-name">
+                    <div class="valid-feedback">
+                        ถูกต้อง
+                    </div>
+                    <div class="invalid-feedback">
+                        กรุณากรอกชื่อของท่าน
+                    </div>
                 </div>
                 <div class="col-12 col-md-6">
                     <label for="lname" class="form-label">สกุล *</label>
-                    <input id="lname" name="last_name" type="text" class="form-control" placeholder="เช่น ใจดี" required>
+                    <input id="lname" name="last_name" type="text" class="form-control" placeholder="เช่น ใจดี" required autocomplete="family-name">
+                    <div class="valid-feedback">
+                        ถูกต้อง
+                    </div>
+                    <div class="invalid-feedback">
+                        กรุณากรอกนามสกุลของท่าน
+                    </div>
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="dob" class="form-label">วันเดือนปีเกิด</label>
-                    <input id="dob" name="dob" type="date" class="form-control">
+                    <input id="dob" name="dob" type="date" class="form-control" autocomplete="bday">
                 </div>
                 <div class="col-12 col-md-6">
                     <label class="form-label d-block">เพศ</label>
                     <div class="d-flex gap-3 align-items-center">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male">
+                            <input class="form-check-input" type="radio" name="gender" id="genderMale" value="male" autocomplete="sex">
                             <label class="form-check-label" for="genderMale">ชาย</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female">
+                            <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="female" autocomplete="sex">
                             <label class="form-check-label" for="genderFemale">หญิง</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other">
+                            <input class="form-check-input" type="radio" name="gender" id="genderOther" value="other" autocomplete="sex">
                             <label class="form-check-label" for="genderOther">อื่นๆ</label>
                         </div>
                     </div>
@@ -86,44 +53,44 @@
 
                 <div class="col-12 col-md-6">
                     <label for="photo" class="form-label">รูป (อัปโหลดภาพ)</label>
-                    <input id="photo" name="photo" type="file" class="form-control" accept="image/*">
+                    <input id="photo" name="photo" type="file" class="form-control" accept="image/*" autocomplete="off">
                 </div>
 
                 <div class="col-12">
                     <label for="address" class="form-label">ที่อยู่</label>
-                    <textarea id="address" name="address" class="form-control" placeholder="บ้านเลขที่ / หมู่ / ตำบล / อำเภอ / จังหวัด"></textarea>
+                    <textarea id="address" name="address" class="form-control" placeholder="บ้านเลขที่ / หมู่ / ตำบล / อำเภอ / จังหวัด" autocomplete="street-address"></textarea>
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="favcolor" class="form-label">สีที่ชอบ</label>
-                    <input id="favcolor" name="favcolor" type="color" class="form-control form-control-color" value="#4f46e5" title="เลือกสี">
+                    <input id="favcolor" name="favcolor" type="color" class="form-control form-control-color" value="#4f46e5" title="เลือกสี" autocomplete="off">
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label class="form-label d-block">แนวเพลงที่ชอบ</label>
                     <div class="checkbox-grid d-flex flex-wrap gap-2">
                         <div class="form-check">
-                            <input class="form-check-input visually-hidden" type="checkbox" name="music" value="pop" id="musicPop">
+                            <input class="form-check-input" type="checkbox" name="music" value="pop" id="musicPop" autocomplete="off">
                             <label class="form-check-label" for="musicPop">Pop</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input visually-hidden" type="checkbox" name="music" value="rock" id="musicRock">
+                            <input class="form-check-input" type="checkbox" name="music" value="rock" id="musicRock" autocomplete="off">
                             <label class="form-check-label" for="musicRock">Rock</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input visually-hidden" type="checkbox" name="music" value="hiphop" id="musicHipHop">
+                            <input class="form-check-input" type="checkbox" name="music" value="hiphop" id="musicHipHop" autocomplete="off">
                             <label class="form-check-label" for="musicHipHop">Hip-hop</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input visually-hidden" type="checkbox" name="music" value="jazz" id="musicJazz">
+                            <input class="form-check-input" type="checkbox" name="music" value="jazz" id="musicJazz" autocomplete="off">
                             <label class="form-check-label" for="musicJazz">Jazz</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input visually-hidden" type="checkbox" name="music" value="country" id="musicCountry">
+                            <input class="form-check-input" type="checkbox" name="music" value="country" id="musicCountry" autocomplete="off">
                             <label class="form-check-label" for="musicCountry">Country</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input visually-hidden" type="checkbox" name="music" value="classical" id="musicClassical">
+                            <input class="form-check-input" type="checkbox" name="music" value="classical" id="musicClassical" autocomplete="off">
                             <label class="form-check-label" for="musicClassical">Classical</label>
                         </div>
                     </div>
@@ -131,7 +98,7 @@
 
                 <div class="col-12 mt-3">
                     <div class="form-check consent">
-                        <input class="form-check-input" type="checkbox" value="" id="consentCheck" required>
+                        <input class="form-check-input" type="checkbox" value="" id="consentCheck" required autocomplete="off">
                         <label class="form-check-label" for="consentCheck">
                             ข้าพเจ้ายินยอมให้เก็บข้อมูลส่วนบุคคล
                         </label>
@@ -149,6 +116,60 @@
         </form>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-</body>
-</html>
+
+    @endsection
+@push("scripts")
+    <script>
+
+        console.log("Starting script...");
+
+        // document.addEventListener("DOMContentLoaded", function () {
+        //     let fname = document.getElementById("fname");
+
+        //     // เมื่อคลิกช่องชื่อ → ให้เรียก clickMe()
+        //     fname.addEventListener("click", clickMe);
+
+        //     // (แนะนำ) ตรวจตอนพิมพ์ด้วย
+        //     fname.addEventListener("input", clickMe);
+        // });
+
+        // let clickMe = function() {
+        //     let fname = document.getElementById("fname");
+        //     // ส่วนนี้จะทำงานก็ต่อเมื่อมีการเรียกใช้ฟังก์ชัน clickMe เท่านั้น
+        //     fname.addEventListener("click", clickMe);
+        //     if (fname.value == "") {
+        //         fname.classList.remove("is-valid");
+        //         fname.classList.add("is-invalid");
+        //     } else {
+        //         fname.classList.remove("is-invalid");
+        //         fname.classList.add("is-valid");
+        //     }
+        //แก้แล้ว
+        document.addEventListener("DOMContentLoaded", function () {
+            // ระบุช่องที่ต้องการให้ตรวจ
+            let fields = ["fname", "lname"];
+
+            fields.forEach(function(id) {
+                let input = document.getElementById(id);
+
+                if (input) {
+                    input.addEventListener("click", validateField);
+                    input.addEventListener("input", validateField);
+                }
+            });
+        });
+
+        // ฟังก์ชันตรวจสอบช่องฟอร์ม
+        function validateField() {
+            if (this.value.trim() === "") {
+                this.classList.remove("is-valid");
+                this.classList.add("is-invalid");
+            } else {
+                this.classList.remove("is-invalid");
+                this.classList.add("is-valid");
+            }
+        }
+
+
+    </script>
+@endpush

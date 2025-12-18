@@ -26,7 +26,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem; /* Use Bootstrap spacing utility */
+            padding: 1rem; /
         }
         .container-custom {
             width: 100%;
@@ -36,7 +36,7 @@
             box-shadow: 0 10px 30px rgba(20, 25, 40, 0.08);
             padding: 28px;
         }
-        /* Custom styling for the checkbox grid to match the original look */
+
         .checkbox-grid .form-check-label {
             display: flex;
             gap: 8px;
@@ -46,9 +46,15 @@
             padding: 8px 10px;
             border-radius: 8px;
             font-size: 13px;
-            margin-bottom: 0; /* Override default margin */
+            margin-bottom: 0;
             cursor: pointer;
         }
+        .checkbox-grid .form-check-input:checked + .form-check-label {
+            background: var(--bs-primary);
+            color: #ffffff;
+            border-color: var(--bs-primary);
+        }
+
     </style>
 </head>
 <body>

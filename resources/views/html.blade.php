@@ -1,12 +1,11 @@
 @extends('template.default')
 
 @section('content')
-    <form action="/save" method="post">
+    <form action="/welcome" method="post" enctype="multipart/form-data" novalidate>
+        @csrf
         <div class="container-custom">
             <h1 class="mb-1">แบบฟอร์มสมัคร</h1>
             <p class="lead text-muted mb-4" style="font-size: 14px;">กรุณากรอกข้อมูลให้ครบถ้วน เพื่อใช้ในการติดต่อกลับ</p>
-
-            <form action="#" method="post" enctype="multipart/form-data" novalidate>
                 <div class="row g-3 g-md-4">
 
                     <div class="col-12 col-md-6">
@@ -96,11 +95,16 @@
 
                     <div class="col-12 col-md-6">
                         <label for="favcolor" class="form-label">สีที่ชอบ</label>
-                        <select class="form-select" id="favcolor" required>
+                        <select class="form-select" id="favcolor" name="favcolor" required>
                             <option value="" selected disabled>-- กรุณาเลือกสี --</option>
-                            <option value="#ff0000">แดง</option>
-                            <option value="#00ff00">เขียว</option>
-                            <option value="#0000ff">น้ำเงิน</option>
+                            <option value="แดง">แดง</option>
+                            <option value="เขียว">เขียว</option>
+                            <option value="น้ำเงิน">น้ำเงิน</option>
+                            <option value="เหลือง">เหลือง</option>
+                            <option value="ชมพู">ชมพู</option>
+                            <option value="ฟ้า">ฟ้า</option>
+                            <option value="ดำ">ดำ</option>
+                            <option value="ขาว">ขาว</option>
                         </select>
                         <div class="valid-feedback">
                             ถูกต้อง
@@ -115,32 +119,32 @@
                         <label class="form-label d-block">แนวเพลงที่ชอบ</label>
                         <div id="favsong"class="checkbox-grid d-flex flex-wrap gap-2">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="music" value="pop"
+                                <input class="form-check-input" type="checkbox" name="music[]" value="pop"
                                     id="musicPop" autocomplete="off">
                                 <label class="form-check-label" for="musicPop">Pop</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="music" value="rock"
+                                <input class="form-check-input" type="checkbox" name="music[]" value="rock"
                                     id="musicRock" autocomplete="off">
                                 <label class="form-check-label" for="musicRock">Rock</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="music" value="hiphop"
+                                <input class="form-check-input" type="checkbox" name="music[]" value="hiphop"
                                     id="musicHipHop" autocomplete="off">
                                 <label class="form-check-label" for="musicHipHop">Hip-hop</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="music" value="jazz"
+                                <input class="form-check-input" type="checkbox" name="music[]" value="jazz"
                                     id="musicJazz" autocomplete="off">
                                 <label class="form-check-label" for="musicJazz">Jazz</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="music" value="country"
+                                <input class="form-check-input" type="checkbox" name="music[]" value="country"
                                     id="musicCountry" autocomplete="off">
                                 <label class="form-check-label" for="musicCountry">Country</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="music" value="classical"
+                                <input class="form-check-input" type="checkbox" name="music[]" value="classical"
                                     id="musicClassical" autocomplete="off">
                                 <label class="form-check-label" for="musicClassical">Classical</label>
                             </div>
@@ -205,9 +209,7 @@
             });
         });
 
-        // =====================
-        // SUBMIT CHECK
-        // =====================
+
         function Summitcheck() {
             let fields = ["fname", "lname", "dob", "address", "favcolor", "photo", "consentCheck"];
             let allValid = true;

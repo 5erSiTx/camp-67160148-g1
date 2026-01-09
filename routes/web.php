@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PokedexController;
 
 Route::get('/', function () {
     return view('html');
@@ -15,3 +16,4 @@ Route::get('/mycontroller', [App\Http\Controllers\MyController::class, 'index'])
 
 Route::get('/calculate', [App\Http\Controllers\MyController::class, 'info']);
 Route::post('/calculate', [App\Http\Controllers\MyController::class, 'calculate']);
+Route::resource('pokedexs', PokedexController::class);

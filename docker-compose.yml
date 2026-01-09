@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: laravel_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - laravel
+
+  nginx:
+    image: nginx:alpine
+    container_name: laravel_nginx
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - laravel
+
+  mysql:
+    image: mysql:8.0
+    container_name: laravel_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE:-camp67160148g1}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-root}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-root}
+      MYSQL_USER: ${DB_USERNAME:-laravel}
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - laravel
+
+  redis:
+    image: redis:alpine
+    container_name: laravel_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - laravel
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql           # ชื่อ Service Database (ถูกต้องแล้ว)
+      PMA_USER: root            # เข้าใช้งานด้วย User Root
+      # ใช้ตัวแปรเดียวกับที่ตั้งใน mysql ด้านบน (ถ้าหาไม่เจอจะใช้ default เป็น root)
+      PMA_PASSWORD: ${DB_PASSWORD:-root}
+    networks:
+      - laravel                 # <--- แก้ตรงนี้ครับ! จาก sail เป็น laravel
+      # หมายเหตุ: ตรง - sail ให้ดู service อื่นในไฟล์ว่าใช้ network ชื่ออะไร
+      # (ถ้า Laravel ส่วนใหญ่ใช้ sail ถ้าไม่มีให้ลบบรรทัด networks นี้ออก)
+
+networks:
+  laravel:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
+
+
